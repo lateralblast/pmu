@@ -3,6 +3,13 @@ pmu
 
 prtdiag Monitoring Utility
 
+The code is rather messy as the prtdiag output on Solaris is
+<br />
+inconsisted across versions of the OS and versions of hardware
+<br />
+For example the output for a V480 is different on Solaris 8, 9 and 10.
+
+
 Usage
 -----
 

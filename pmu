@@ -13,6 +13,9 @@
 # Vendor:       UNIX
 # Packager:     Richard Spindler <richard@lateralblast.com.au>
 # Description: 	Tool for processing prtdiag and fmadm output to look for faults 
+#               The code is rather messy as the prtdiag output on Solaris is
+#               inconsisted across versions of the OS and versions of hardware
+#               For example the output for a V480 is different on Solaris 8, 9 and 10
 
 #               0.0.1:
 #               Inital version
@@ -338,7 +341,7 @@ if (! -e "$temp_dir") {
 }
 
 #
-# do a run test 
+# do a run test and make sure a copy of the script is not already running
 #
 
 sub do_run_test {        
@@ -356,7 +359,9 @@ sub do_run_test {
 
 }
 
-# populate changelog 
+#
+# Populate changelog (now defunct as version information is in script) 
+#
 
 if ($option{'k'}=~/[0-9][0-9]/) {
 	populate_change_log();
@@ -373,6 +378,10 @@ if (!$option{'n'}) {
 	check_version_stub();
 }
 
+#
+# This code was used for auto updating (needs to be updated)
+#
+
 sub upgrade_script_file {
 
   my $remote_file="/pub/sun/$script_name/$script_name"; 
@@ -381,6 +390,11 @@ sub upgrade_script_file {
   get_ftp_file($remote_file,$local_file);
   return;
 } 
+
+#
+# This code was used for comparing remote version to local version
+# (needs updating)
+#
 
 sub check_version_stub {
 
@@ -404,6 +418,10 @@ sub check_version_stub {
   return;
 }
 
+#
+# This code was used for fetching the remote version (needs updating)
+#
+
 sub get_version_stub {
 
   my $version_stub=`grep '^# Version' $script_file |awk '{print \$3}'`;
@@ -413,6 +431,11 @@ sub get_version_stub {
 	$version_stub=~s/"//g; $version_stub=~s/^0//g;
   return($version_stub);
 }
+
+#
+# This code was used for fetching a file (needs updating)
+#
+
 
 sub get_ftp_file {
 
@@ -426,33 +449,61 @@ sub get_ftp_file {
   return;
 } 
 
+#
+# If given a -s send to syslog
+#
+
 if ($option{'s'}) {
 	$syslog=1;
 }
+
+#
+# If given a -t run in test mode and induce false errors
+#
 
 if ($option{'t'}) {
 	$errors=1;
 	print "Inducing false errors...\n";
 }
 
+#
+# If given a -h print help
+#
+
 if ($option{'h'}) {
 	print_help_info();
 	exit;
 }
+
+#
+# If given a -c print change log
+#
 
 if ($option{'c'}) {
 	print_change_log();
 	exit;
 }
 
+#
+# If given a -V print version information
+#
+
 if ($option{'V'}) {
 	print_version_info();
 	exit;
 }
 
+#
+# If given a -r set the receiver of the email
+#
+
 if ($option{'r'}) {
 	$sys_admin=$option{'r'};
 }
+
+#
+# Handle other switches appropriately
+#
 
 if (($option{'l'})||($option{'m'})||($option{'e'})||($option{'p'})||($option{'a'})) {
 	if (($option{'l'})||($option{'a'})) {
@@ -536,6 +587,10 @@ if (($option{'l'})||($option{'m'})||($option{'e'})||($option{'p'})||($option{'a'
 	exit;	
 }
 
+#
+# Process fmadm information on Solaris 10 and 11
+#
+
 sub process_fma_info {
 
 	my $counter; my $record; my $number=0; my $tester; my $name_string; 
@@ -610,6 +665,10 @@ sub process_fma_info {
 	return;
 }
 
+#
+# Print help information
+#
+
 sub print_help_info {
 	print_version_info();
 	if ($sys_release=~/5\.10|5\.11/) {
@@ -679,7 +738,9 @@ sub process_all_info {
 
 }
 
+#
 # Print change in version information
+#
 
 sub print_version_change {
 
@@ -702,7 +763,9 @@ sub print_version_change {
   return;
 }
 
-# Print changelog
+#
+# Print changelog (needs updating)
+#
 
 sub print_change_log {
 
@@ -721,7 +784,9 @@ sub print_change_log {
 	return;
 }
 
-# Populate change log
+#
+# Populate change log (needs updating)
+#
 
 sub populate_change_log {
 
@@ -738,6 +803,10 @@ sub populate_change_log {
 	return;
 }
 
+#
+# Print version information
+#
+
 sub print_version_info {
 	print "\n";
   $version_string=`grep '^# Version' $script_file |awk '{print \$3}'`;
@@ -747,57 +816,9 @@ sub print_version_info {
 	return;	
 }
 
-sub log_to_heat {
-
-	my $url_string="http://users.monash.edu.au/~zoltan/logheat.php";
-	my $lwp_test; my $phonum="59560"; my $descpt; my $lynx_exe;
-	my $desdpt="Shared Systems"; my $call_type="Server hardware";
-	my $prefix; my $suffix; my $heat_id; my $lognam="spindler"; 
-	my $brwser; my $respon; my $command;
-
-	$descpt="$hostname: HARDWARE ERROR";
-	eval "use LWP::UserAgent"; $lwp_test=$@?0:1;
-	if ($lwp_test) {
-		my $brwser=LWP::UserAgent->new;
-		my $respon=$brwser->post ($url_string,
-			['email' => $sys_admin,
-			'custid' => $lognam,
-			'phone' => $phonum,
-			'desc' => $descpt,
-			'em_opencc' => $sys_admin,
-			'dest_dept' => $desdpt,
-			'calltypesetting' => $call_type,
-			]
-		);
-		$heat_id=$respon->responce();
-	}
-	else {  
-		if (-e "/usr/bin/lynx") {
-			$lynx_exe="/usr/bin/lynx";
-		}
-		else {  
-			if (-e "/usr/local/bin/lynx") {
-				$lynx_exe="/usr/local/bin/lynx";
-			}
-			else {  
-				if (-e "/usr/local/lynx/bin/lynx") {
-					$lynx_exe="/usr/local/lynx/bin/lynx";
-				}
-			}
-		}
-		if ($lynx_exe=~/bin/) {
-			$command="$lynx_exe -dump \"$url_string?email=$sys_admin&cusid=$lognam&phone=$phonum&desc=$descpt&em_opencc=$sys_admin&dest_dept=$desdpt&calltypesetting=$call_type\"";
-			$heat_id=`$command`;
-		}
-	}
-	($prefix,$heat_id)=split("<callid>",$heat_id);
-	($heat_id,$suffix)=split("</callid>",$heat_id);
-	chomp($heat_id);
-	if ($option{'V'}) {
-		print "Heat ID created: $heat_id\n";
-	}
-	return($heat_id);
-}
+#
+# Get System Information
+#
 
 sub get_sys_info {
 
@@ -826,6 +847,10 @@ sub get_sys_info {
 	return;
 }
 
+#
+# Get prtdiag output
+#
+
 sub get_prt_info {
 
 	my $record; my $counter; my $prt_command;
@@ -851,6 +876,10 @@ sub get_prt_info {
 	}
 	return;
 }
+
+#
+# Process prtdiag information and split it up into separate arrays
+#
 
 sub  process_prt_info {
 
@@ -918,12 +947,20 @@ sub  process_prt_info {
 	return;
 }
 
+#
+# Print general information from prtdiag
+#
+
 sub print_general_info {
 	print "\n";
 	print " @general_info\n";
 	print "\n";
 	return;
 }
+
+#
+# Process general information from prtdiag
+#
 
 sub process_general_info {
 
@@ -999,6 +1036,10 @@ sub print_fru_info {
 	print "\n";
 	return;
 }
+
+#
+# Process CPU information from prtdiag
+#
 
 sub process_cpu_info {
 
@@ -1163,6 +1204,10 @@ sub process_cpu_info {
 	return;
 }
 
+#
+# Process memory information from prtdiag
+#
+
 sub process_mem_info {
 
 	my $counter; my $record; my $mem_base=$na_string; my $mem_size=$na_string;
@@ -1304,6 +1349,10 @@ sub process_mem_info {
 	}
 	return;
 }
+
+#
+# Process device information form prtdiag
+#
 
 sub process_device_info {
 
@@ -1516,6 +1565,10 @@ sub process_device_info {
 	return;
 }
 
+#
+# Process environmental information from prtdiag
+#
+
 sub process_env_info {
 
 	my $counter; my $record; my $prefix; my $field_type;
@@ -1570,6 +1623,10 @@ sub process_env_info {
 	}
 	return;
 }
+
+#
+# Process FRU information from prtdiag
+#
 
 sub process_fru_info {
 
@@ -1652,6 +1709,10 @@ sub process_fru_info {
 	return;
 }
 
+#
+# Process LED information form prtdiag
+#
+
 sub process_led_info {
 
 	my $record; my $counter; my $status="OK"; my @led_status;
@@ -1708,7 +1769,11 @@ sub process_led_info {
 	}
 	return;
 }
-	
+
+#
+# Process hardware information from prtdiag
+#
+
 sub process_hardware_info {
 
 	my $counter; my $record; my $io_path; my $name_string; my $status="OK"; 
@@ -1874,6 +1939,10 @@ sub process_hardware_info {
 	return;
 }
 
+#
+# Process fan information from prtdiag
+#
+
 sub process_fan_info {
 
 	my $counter; my $record; my @fan_status; my $tester; my $fan_unit; 
@@ -2009,6 +2078,10 @@ sub process_fan_info {
 	}
 	return;
 }
+
+#
+# Process temperature information from prtdiag
+#
 
 sub process_temp_info {
 
@@ -2155,6 +2228,10 @@ sub process_temp_info {
 	return;
 }
 
+#
+# Process voltage information from prtdiag
+#
+
 sub process_voltage_info {
 
 	my $counter; my $record; my @voltage_status; my $number=0; my $tester; 
@@ -2249,6 +2326,11 @@ sub process_voltage_info {
 	return;
 }
 
+#
+# Process current information from prtdiag
+#
+
+
 sub process_current_info {
 
 	my $counter; my $record; my @current_status; my $number=0; my $tester; 
@@ -2342,6 +2424,10 @@ sub process_current_info {
 	}
 	return;
 }
+
+#
+# Process power information from prtdiag
+#
 
 sub process_power_info {
 
@@ -2441,6 +2527,10 @@ sub process_power_info {
 	}
 	return;
 }
+
+#
+# Process disk information from prtdiag
+#
 
 sub process_disk_info {
 
@@ -2544,6 +2634,10 @@ sub process_disk_info {
 	return;
 }
 
+#
+# Mail a report if errors are found
+#
+
 sub mail_report {
 
 	my $length=`wc -l $prtdiag_output |awk '{print \$1}'`;
@@ -2579,6 +2673,10 @@ sub mail_report {
 	}
 	return;
 }
+
+#
+# Clean up any temporary files
+#
 
 sub remove_temp_file {
 	if (-e "$prtdiag_output") {
