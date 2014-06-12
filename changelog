@@ -278,3 +278,5 @@
 # Added FMA support
 # 1.3.9: Sunday, May 26, 2013 01:41:23 PM EST
 # Added initial x86 and Solaris 11 support
+# 1.4.0: Thu 12 Jun 2014 11:47:44 EST
+# Cleaned up changelog and added license
