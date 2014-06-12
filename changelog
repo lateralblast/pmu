@@ -1,0 +1,280 @@
+# 0.0.1:
+# Inital version
+# 0.0.2:
+# Added prtdiag parsing
+# 0.0.3:
+# Added parsing for various sections of prtdiag
+# 0.0.4:
+# Added processing of IO Data (iod)
+# 0.0.5:
+# Added support for V440 to iod for Solaris 9
+# 0.0.6:
+# Added support for V440 to iod for Solaris 8
+# 0.0.7:
+# Added support for V480 to iod
+# 0.0.8:
+# Added command call to hwr for Ultra 5 running Solaris 2.6
+# 0.0.9:
+# Added processing of CPU data (cpu)
+# 0.1.0:
+# Added support for V440 to cpu for Solaris 9
+# 0.1.1:
+# Added support for V440 to cpu for Solaris 8
+# 0.1.2:
+# Added support for V480 to cpu
+# 0.1.3:
+# Added support for Ultra 5 to cpu
+# 0.1.4:
+# Added support for E450 to iod
+# 0.1.5:
+# Added support for E450 to cpu
+# 0.1.6:
+# Added processing of Hardware Revisions (hwr)
+# 0.1.7:
+# Added support for V440 to hwr
+# 0.1.8:
+# Added support for V480 to hwr
+# 0.1.9:
+# Added support for Ultra5 to hwr
+# 0.2.0:
+# Added support for E450 to hwr
+# 0.2.1:
+# Added support for Sun Blade 100 to cpu
+# 0.2.2:
+# Added support for Sun Blade 100 to hwr
+# 0.2.3:
+# Added support for Sun Blade 100 to iod
+# 0.2.4:
+# Added support for V440 to mem
+# 0.2.5:
+# Added support for V480 to mem
+# 0.2.6:
+# Added support for E450 to mem
+# 0.2.7:
+# Added support for V880 to mem
+# 0.2.8:
+# Added support for V880 to cpu
+# 0.2.9:
+# Added support for V880 to hwr
+# 0.3.0:
+# Added support for V880 to iod
+# 0.3.1:
+# Added support for E280R to hw
+# 0.3.2:
+# Added support for E280R to cpu
+# 0.3.3:
+# Added support for E280R to mem
+# 0.3.4:
+# Added support for E280R to iod
+# 0.3.5:
+# Added support for V240 to cpu
+# 0.3.6:
+# Added support for V240 to mem
+# 0.3.7:
+# Added support for V240 to iod
+# 0.3.8:
+# Added support for V240 to hwr
+# 0.3.9:
+# Added support for Netra X1 to cpu
+# 0.4.0:
+# Added support for Netra X1 to mem
+# 0.4.0:
+# Added support for Netra X1 to iod
+# 0.4.1:
+# Added support for SUNW,Ultra-Enterprise to cpu
+# 0.4.2:
+# Added support for SUNW,Ultra-Enterprise to mem
+# 0.4.3:
+# Added support for SUNW,Ultra-Enterprise to iod
+# 0.4.4:
+# Added support for SUNW,Ultra-Enterprise to hwr
+# 0.4.5:
+# Cleaned up code
+# 0.4.6:
+# Added support for V480 to fru
+# 0.4.6:
+# Added support for V240 to fru
+# 0.4.7:
+# Added support for SUNW,Ultra-Enterprise-10000 to cpu
+# 0.4.8:
+# Added support for SUNW,Ultra-Enterprise-10000 to mem
+# 0.4.9:
+# Added support for SUNW,Ultra-Enterprise-10000 to iod
+# 0.5.0:
+# Added support for Blade 150 to env
+# 0.5.1:
+# Added support for E250 to cpu
+# 0.5.2:
+# Added support for E250 to mem
+# 0.5.3:
+# Added support for E250 to iod
+# 0.5.4:
+# Added support for E250 to hwr
+# 0.5.5:
+# Added code to split env into fan, tmp, col, cur, pwr and dsk
+# 0.5.6:
+# Added support for SUNW,Ultra-Enterprise to fan
+# 0.5.7:
+# Added support for E250 to fan
+# 0.5.8:
+# Added support for E280 to fan
+# 0.5.9:
+# Added support for E450 to fan
+# 0.6.0:
+# Added support for V240 to fan
+# 0.6.1:
+# Added support for V440 to fan
+# 0.6.2:
+# Added support for V480 to fan
+# 0.6.3:
+# Added support for V880 to fan
+# 0.6.4:
+# Added support for SUNW,Ultra-Enterprise to tmp
+# 0.6.5:
+# Added support for E250 to tmp
+# 0.6.6:
+# Added support for E280 to tmp
+# 0.6.7:
+# Added support for E450 to tmp
+# 0.6.8:
+# Added support for V240 to tmp
+# 0.6.9:
+# Added support for V440 to tmp
+# 0.7.0:
+# Added support for V480 to tmp
+# 0.7.1:
+# Added support for V880 to tmp
+# 0.7.3:
+# Added support for V240 to vol
+# 0.7.4:
+# Added support for V440 to vol
+# 0.7.5:
+# Added support for V240 to cur
+# 0.7.6:
+# Added support for V440 to cur
+# 0.7.7:
+# Added support for SUNW,Ultra-Enterprise to pwr
+# 0.7.8:
+# Added support for E250 to pwr
+# 0.7.9:
+# Added support for E280 to pwr
+# 0.8.0:
+# Added support for E450 to pwr
+# 0.8.1:
+# Added support for V240 to pwr
+# 0.8.2:
+# Added support for V440 to pwr
+# 0.8.3:
+# Added support for V480 to pwr
+# 0.8.4:
+# Added support for V880 to pwr
+# 0.8.5:
+# Added support for E250 to dsk
+# 0.8.6:
+# Added support for E280 to dsk
+# 0.8.7:
+# Added support for E450 to dsk
+# 0.8.8:
+# Added support for V480 to dsk
+# 0.8.9:
+# Added support for V880 to dsk
+# 0.9.0:
+# Cleaned up code and bugs
+# 0.9.1:
+# Added mail functionality
+# 0.9.2:
+# Fixed more bugs
+# 0.9.3:
+# Improved output
+# 0.9.4:
+# Added help
+# 0.9.5:
+# Fixed bugs on V440
+# 0.9.6:
+# Added support for SUNW,Ultra-60 to mem
+# 0.9.7:
+# Added support for SUNW,Ultra-60 to cpu
+# 0.9.8:
+# Added support for SUNW,Ultra-60 to iod
+# 0.9.9:
+# Added support for SUNW,Ultra-60 to hwr
+# 1.0.0:
+# Added test functionality
+# 1.0.1:
+# Used Getopt::Std
+# 1.0.2:
+# Added 890 support to all
+# 1.0.3:
+# Fixed 880 pwr support
+# 1.0.4:
+# Added self update code
+# 1.0.5:
+# Added syslog support
+# 1.0.6:
+# Added support for V490
+# 1.0.7:
+# Added support to not check for updates
+# 1.0.8:
+# Fixed a lot of errors with switch handling
+# 1.0.9:
+# Cleaned up output code
+# 1.1.0:
+# Fixed problem with Evironmental info not being shown
+# 1.1.1:
+# Added support for V210
+# 1.1.2:
+# Fixed up FRU status code
+# 1.1.3:
+# Fixed up FRU status output
+# 1.1.4:
+# Cleaned up FRU status output
+# 1.1.5:
+# Cleaned up email option and added examples to help
+# 1.1.6:
+# Cleaned up status testing
+# 1.1.7:
+# Fixed CPU reporting for V490/V890
+# 1.1.8:
+# Added suport for T1000
+# 1.1.9:
+# Cleaned up commandline handling and added zone check
+# 1.2.0:
+# Added LED status support
+# 1.2.1:
+# Added support for GOOD as a status output
+# 1.2.2:
+# Added support to log Heat call
+# 1.2.3: Sun Sep  3 23:08:44 EST 2006
+# Updated changelog code inline with other scripts
+# 1.2.4: Tue Oct 10 11:28:37 EST 2006
+# Added ability to generate heat calls
+# 1.2.5: Mon Oct 30 09:35:40 EST 2006
+# Fixed text being sent to heat
+# 1.2.6: Mon Nov 20 23:29:52 EST 2006
+# Cleaned up Heat code
+# 1.2.7: Thu Feb 22 11:33:50 EST 2007
+# Added support for Sun-Fire-T200
+# 1.2.8: Tue May 22 21:37:09 EST 2007
+# Change heat logging to email cst
+# 1.2.9: Tue Jul 24 21:54:43 EST 2007
+# Cleaned up error reporting for disks
+# 1.3.0: Tue Nov 27 23:36:06 EST 2007
+# Fixed code to handle FRUs
+# 1.3.1: Tue Dec  4 23:04:39 EST 2007
+# Added support for T5220 T5120 T6300 and T6320
+# 1.3.2: Tue Aug 19 14:22:47 EST 2008
+# Change email address to send reports
+# 1.3.3: Thu Nov  6 20:17:55 EST 2008
+# Cleanups
+# 1.3.4: Thu Nov  6 20:41:26 EST 2008
+# Fixed changelog code
+# 1.3.5: Thu Nov  6 21:01:19 EST 2008
+# Cleaned up mail code
+# 1.3.6: Thu Nov  6 21:18:54 EST 2008
+# Cleaned up mail code
+# 1.3.7: Wed Apr 22 15:14:48 EST 2009
+# Check for multiple running copies
+# 1.3.8: Tue Jan  4 13:30:27 EST 2011
+# Added FMA support
+# 1.3.9: Sunday, May 26, 2013 01:41:23 PM EST
+# Added initial x86 and Solaris 11 support
