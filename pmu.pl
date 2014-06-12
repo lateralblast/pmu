@@ -1,7 +1,5 @@
 #!/usr/bin/env perl
 
-#!/bin/sh
-
 # Name:         pmu (prtdiag Monitoring Utility)
 # Version:      1.4.0
 # Release:      1
